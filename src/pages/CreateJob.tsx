@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "../components/layout/Navbar";
 import CreateJobForm from "../components/home/CreateJobForm";
@@ -8,7 +9,7 @@ const CreateJob: React.FC = () => {
     <div className="bg-white flex flex-col overflow-hidden items-center pt-[26px] pb-4">
       <Navbar />
       <div className="container mx-auto py-16">
-        <h1 className="text-black text-[45px] font-medium tracking-[2.25px] text-center mb-12 max-md:text-[35px]">
+        <h1 className="text-black text-[42px] font-medium tracking-[2.1px] text-center mb-12 max-md:text-[32px]">
           Create a New Job Posting
         </h1>
         <CreateJobForm />

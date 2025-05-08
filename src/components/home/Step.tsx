@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface StepProps {
@@ -9,16 +10,16 @@ interface StepProps {
 
 const Step: React.FC<StepProps> = ({ icon, title, description, className = "" }) => {
   return (
-    <div className={`bg-white flex flex-col overflow-hidden text-black pt-8 pb-[85px] px-[33px] rounded-[40px] ${className}`}>
+    <div className={`bg-white flex flex-col overflow-hidden text-black pt-8 pb-[75px] px-[30px] rounded-[30px] shadow-sm hover:shadow-md transition-all ${className}`}>
       <img
         src={icon}
         alt={`${title} icon`}
-        className="aspect-[1] object-contain w-[60px]"
+        className="aspect-[1] object-contain w-[55px]"
       />
-      <h3 className="text-[25px] font-medium tracking-[1.25px] text-center ml-[25px] mt-[27px] max-md:ml-2.5">
+      <h3 className="text-[24px] font-medium tracking-[1.2px] mt-[25px] max-md:ml-0">
         {title}
       </h3>
-      <p className="text-xl font-normal tracking-[1px] self-stretch ml-[25px] mt-2 max-md:ml-2.5">
+      <p className="text-lg font-normal tracking-[0.9px] text-gray-700 mt-3 max-md:ml-0">
         {description}
       </p>
     </div>

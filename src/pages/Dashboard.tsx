@@ -1,4 +1,6 @@
+
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { Button } from "../components/ui/button";
@@ -49,21 +51,23 @@ const Dashboard: React.FC = () => {
     <div className="bg-white flex flex-col overflow-hidden items-center pt-[26px] pb-4">
       <Navbar />
       <div className="container mx-auto py-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-10">
           <h1 className="text-black text-[40px] font-medium tracking-[2px] max-md:text-[30px]">
             Dashboard
           </h1>
-          <Button variant="talexa" size="talexa">
-            CREATE NEW JOB
-          </Button>
+          <Link to="/create-job">
+            <Button variant="gradient" size="talexa">
+              CREATE NEW JOB
+            </Button>
+          </Link>
         </div>
 
-        <div className="bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8">
+        <div className="bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8 shadow-sm">
           <h2 className="text-[28px] font-medium tracking-[1.4px] mb-6">Your Job Postings</h2>
           
           <div className="overflow-x-auto">
-            <table className="w-full bg-white rounded-lg overflow-hidden">
-              <thead className="bg-[rgba(233,233,233,1)]">
+            <table className="w-full bg-white rounded-lg overflow-hidden shadow-sm">
+              <thead className="bg-[rgba(233,233,233,0.8)]">
                 <tr>
                   <th className="text-left p-4 font-medium">Job Title</th>
                   <th className="text-left p-4 font-medium">Location</th>
@@ -75,7 +79,7 @@ const Dashboard: React.FC = () => {
               </thead>
               <tbody>
                 {jobPostings.map((job) => (
-                  <tr key={job.id} className="border-b border-gray-200">
+                  <tr key={job.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
                     <td className="p-4">
                       <div className="font-medium">{job.title}</div>
                       <div className="text-sm text-gray-500">{job.company}</div>
@@ -105,20 +109,22 @@ const Dashboard: React.FC = () => {
           </div>
           
           {jobPostings.length === 0 && (
-            <div className="text-center py-8">
-              <p className="text-gray-500 mb-4">You haven't created any job postings yet.</p>
-              <Button variant="talexa" size="talexa">
-                CREATE YOUR FIRST JOB
-              </Button>
+            <div className="text-center py-12 bg-white rounded-lg shadow-sm">
+              <p className="text-gray-500 mb-6">You haven't created any job postings yet.</p>
+              <Link to="/create-job">
+                <Button variant="gradient" size="talexa">
+                  CREATE YOUR FIRST JOB
+                </Button>
+              </Link>
             </div>
           )}
         </div>
         
-        <div className="mt-12 bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8">
+        <div className="mt-12 bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8 shadow-sm">
           <h2 className="text-[28px] font-medium tracking-[1.4px] mb-6">Recent Activity</h2>
           
           <div className="space-y-4">
-            <div className="bg-white p-4 rounded-lg flex items-center gap-4">
+            <div className="bg-white p-4 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
               <div className="bg-blue-100 p-2 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500">
                   <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
@@ -133,7 +139,7 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
             
-            <div className="bg-white p-4 rounded-lg flex items-center gap-4">
+            <div className="bg-white p-4 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
               <div className="bg-green-100 p-2 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500">
                   <polyline points="20 6 9 17 4 12"></polyline>
@@ -145,7 +151,7 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
             
-            <div className="bg-white p-4 rounded-lg flex items-center gap-4">
+            <div className="bg-white p-4 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
               <div className="bg-purple-100 p-2 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-500">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>

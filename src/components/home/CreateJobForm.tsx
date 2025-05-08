@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -58,80 +59,86 @@ const CreateJobForm: React.FC = () => {
   };
   
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-8 rounded-[40px] shadow-md">
-      <h2 className="text-[32px] font-medium tracking-[1.6px] text-center mb-8">Create a Job Posting</h2>
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-8 rounded-[30px] shadow-sm">
+      <h2 className="text-[30px] font-medium tracking-[1.6px] text-center mb-8">Create a Job Posting</h2>
       
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="jobTitle">Job Title</Label>
+          <Label htmlFor="jobTitle" className="text-base">Job Title</Label>
           <Input
             id="jobTitle"
             name="jobTitle"
             value={formData.jobTitle}
             onChange={handleChange}
             placeholder="e.g. Frontend Developer"
+            className="rounded-lg p-3 text-base"
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="company">Company</Label>
+          <Label htmlFor="company" className="text-base">Company</Label>
           <Input
             id="company"
             name="company"
             value={formData.company}
             onChange={handleChange}
             placeholder="e.g. Talexa Inc."
+            className="rounded-lg p-3 text-base"
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
+          <Label htmlFor="location" className="text-base">Location</Label>
           <Input
             id="location"
             name="location"
             value={formData.location}
             onChange={handleChange}
             placeholder="e.g. Remote, New York, NY"
+            className="rounded-lg p-3 text-base"
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="description">Job Description</Label>
+          <Label htmlFor="description" className="text-base">Job Description</Label>
           <Textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Describe the role and responsibilities"
+            className="rounded-lg p-3 text-base min-h-[120px]"
             rows={4}
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="requirements">Requirements</Label>
+          <Label htmlFor="requirements" className="text-base">Requirements</Label>
           <Textarea
             id="requirements"
             name="requirements"
             value={formData.requirements}
             onChange={handleChange}
             placeholder="List the qualifications and experience needed"
+            className="rounded-lg p-3 text-base min-h-[120px]"
             rows={4}
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="skills">Skills</Label>
+          <Label htmlFor="skills" className="text-base">Skills</Label>
           <div className="flex gap-2">
             <Input
               id="skills"
               value={skillInput}
               onChange={(e) => setSkillInput(e.target.value)}
               placeholder="e.g. React, TypeScript"
+              className="rounded-lg p-3 text-base"
             />
             <Button 
               type="button" 
@@ -165,8 +172,8 @@ const CreateJobForm: React.FC = () => {
         
         <Button 
           type="submit" 
-          className="w-full"
-          variant="talexa"
+          className="w-full mt-6"
+          variant="gradient"
           size="talexa"
         >
           CREATE JOB POSTING
