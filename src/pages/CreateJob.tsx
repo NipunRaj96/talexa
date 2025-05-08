@@ -6,15 +6,19 @@ import Footer from "../components/layout/Footer";
 
 const CreateJob: React.FC = () => {
   return (
-    <div className="bg-white flex flex-col overflow-hidden items-center pt-[26px] pb-4">
-      <Navbar />
-      <div className="container mx-auto py-16">
-        <h1 className="text-black text-[42px] font-medium tracking-[2.1px] text-center mb-12 max-md:text-[32px]">
-          Create a New Job Posting
-        </h1>
-        <CreateJobForm />
+    <div className="bg-white flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-7xl px-4 py-6 flex flex-col items-center">
+        <Navbar />
+        <div className="container mx-auto py-16">
+          <h1 className="text-black text-4xl font-medium tracking-wider text-center mb-12">
+            Create a New Job Posting
+          </h1>
+          <CreateJobForm />
+        </div>
       </div>
-      <Footer />
+      <div className="w-full max-w-7xl px-4 flex justify-center">
+        <Footer />
+      </div>
     </div>
   );
 };

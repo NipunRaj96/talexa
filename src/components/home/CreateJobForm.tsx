@@ -59,9 +59,7 @@ const CreateJobForm: React.FC = () => {
   };
   
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-8 rounded-[30px] shadow-sm">
-      <h2 className="text-[30px] font-medium tracking-[1.6px] text-center mb-8">Create a Job Posting</h2>
-      
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-md">
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="jobTitle" className="text-base">Job Title</Label>
@@ -154,7 +152,7 @@ const CreateJobForm: React.FC = () => {
               {formData.skills.map((skill, index) => (
                 <div 
                   key={index} 
-                  className="bg-[rgba(233,233,233,1)] px-3 py-1 rounded-full flex items-center gap-2"
+                  className="bg-[#f2f2f2] px-3 py-1 rounded-full flex items-center gap-2"
                 >
                   <span>{skill}</span>
                   <button 

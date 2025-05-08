@@ -1,106 +1,79 @@
 
 import React from "react";
-import Step from "./Step";
-import { IMAGES } from "../../assets/images";
+import { Button } from "../ui/button";
+
+interface StepProps {
+  number: number;
+  title: string;
+  description: string;
+}
+
+const Step: React.FC<StepProps> = ({ number, title, description }) => {
+  return (
+    <div className="bg-white rounded-2xl p-6 shadow-sm h-full">
+      <div className="bg-[#f2f2f2] w-8 h-8 rounded-full flex items-center justify-center mb-4">
+        <span className="text-sm">{number}</span>
+      </div>
+      <h3 className="text-xl font-medium mb-2">{title}</h3>
+      <p className="text-gray-700 text-sm">{description}</p>
+    </div>
+  );
+};
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="bg-[rgba(233,233,233,0.8)] self-stretch flex flex-col overflow-hidden items-center pt-[70px] pb-[120px] px-20 mt-[80px] max-md:max-w-full max-md:pb-[100px] max-md:px-5">
-      <div className="flex mb-[-20px] w-full max-w-[1050px] flex-col items-center max-md:max-w-full max-md:mb-2.5">
-        <h2 className="text-black text-[30px] font-normal tracking-[1.5px] text-center max-md:max-w-full">
-          Talexa highlights talent beyond the numbers.
-          <br />
-          <span className="font-medium">Smarter shortlisting, without the bias.</span>
-        </h2>
+    <section className="bg-[#f2f2f2] w-full py-16">
+      <div className="container mx-auto max-w-5xl px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-2xl font-normal mb-2">
+            Talexa highlights talent beyond the numbers.
+            <br />
+            Smarter shortlisting, without the bias.
+          </h2>
+          
+          <div className="w-0.5 h-12 bg-gray-300 mx-auto my-4"></div>
+          
+          <Button 
+            className="bg-white text-black hover:bg-gray-100 rounded-full px-8 py-2 text-lg font-medium"
+          >
+            HOW IT WORKS
+          </Button>
+        </div>
         
-        <img
-          src={IMAGES.DIVIDER}
-          alt="Divider"
-          className="aspect-[0.02] object-contain w-0.5 mt-[25px]"
-        />
-        
-        <button className="bg-white w-[280px] max-w-full overflow-hidden text-[24px] text-black font-medium text-center tracking-[1.2px] mt-[25px] px-[50px] py-[20px] rounded-[30px] shadow-sm hover:shadow-md transition-all max-md:px-5">
-          HOW IT WORKS
-        </button>
-        
-        <div className="self-stretch mt-[50px] max-md:max-w-full">
-          <div className="gap-8 flex max-md:flex-col max-md:items-stretch">
-            {/* Left column */}
-            <div className="w-[58%] max-md:w-full max-md:ml-0">
-              <div className="w-full max-md:max-w-full">
-                <div className="max-md:max-w-full">
-                  <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-                    <div className="w-[73%] max-md:w-full max-md:ml-0">
-                      <Step 
-                        icon={IMAGES.CREATE_JOB_ICON}
-                        title="Create A Job Posting"
-                        description="Define your requirements and the skills you're looking for in candidates."
-                        className="w-full mt-[100px] pb-[90px] px-[40px] max-md:max-w-full max-md:mt-10 max-md:pb-[80px] max-md:px-5"
-                      />
-                    </div>
-                    <div className="w-[27%] ml-5 max-md:w-full max-md:ml-0">
-                      <div className="grow">
-                        <img
-                          src={IMAGES.ARROW_1}
-                          alt="Arrow"
-                          className="aspect-[0.33] object-contain w-[94px]"
-                        />
-                        <img
-                          src={IMAGES.ARROW_2}
-                          alt="Arrow"
-                          className="aspect-[0.95] object-contain w-[186px]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-[20px] max-md:max-w-full">
-                  <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-                    <div className="w-[73%] max-md:w-full max-md:ml-0">
-                      <Step 
-                        icon={IMAGES.AI_ICON}
-                        title="AI Magic !!"
-                        description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
-                        className="w-full mt-[90px] pl-[40px] pr-[40px] pt-8 pb-[80px] max-md:max-w-full max-md:mt-10 max-md:px-5"
-                      />
-                    </div>
-                    <div className="w-[27%] ml-5 max-md:w-full max-md:ml-0">
-                      <div className="grow">
-                        <img
-                          src={IMAGES.ARROW_3}
-                          alt="Arrow"
-                          className="aspect-[0.69] object-contain w-[186px]"
-                        />
-                        <img
-                          src={IMAGES.ARROW_4}
-                          alt="Arrow"
-                          className="aspect-[0.97] object-contain w-[186px] mt-[5px]"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative">
+          {/* Line connecting steps */}
+          <div className="absolute hidden md:block left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
+          
+          <div className="relative z-10">
+            <Step 
+              number={1}
+              title="Create A Job Posting"
+              description="Define your requirements and the skills you're looking for in candidates."
+            />
             
-            {/* Right column */}
-            <div className="w-[42%] ml-5 max-md:w-full max-md:ml-0">
-              <div className="grow text-black mt-[290px] max-md:max-w-full max-md:mt-10">
-                <Step 
-                  icon={IMAGES.APPLY_ICON}
-                  title="Candidates Apply"
-                  description="Share your unique job link and collect applications with resumes."
-                  className="pb-[90px] px-[40px] max-md:max-w-full max-md:pb-[80px] max-md:px-5"
-                />
-                
-                <Step 
-                  icon={IMAGES.REVIEW_ICON}
-                  title="Review Top Matches"
-                  description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
-                  className="mt-[140px] px-[40px] max-md:max-w-full max-md:mt-10 max-md:px-5"
-                />
-              </div>
-            </div>
+            <div className="h-16 md:h-48"></div>
+            
+            <Step 
+              number={3}
+              title="AI Magic !!"
+              description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
+            />
+          </div>
+          
+          <div className="relative z-10 md:mt-48">
+            <Step 
+              number={2}
+              title="Candidates Apply"
+              description="Share your unique job link and collect applications with resumes."
+            />
+            
+            <div className="h-16 md:h-48"></div>
+            
+            <Step 
+              number={4}
+              title="Review Top Matches"
+              description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
+            />
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         talexa: "bg-black text-white font-medium tracking-[1px] rounded-[30px]",
-        gradient: "bg-gradient-to-r from-[#9b87f5] to-[#33C3F0] text-white font-medium tracking-[1px] rounded-[30px] hover:shadow-md transition-all duration-300",
+        gradient: "bg-gradient-to-r from-[#6d48e5] to-[#9b87f5] text-white font-medium tracking-[1px] rounded-[30px] hover:shadow-md transition-all duration-300",
       },
       size: {
         default: "h-10 px-4 py-2",
