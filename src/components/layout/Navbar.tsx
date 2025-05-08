@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-[#f2f2f2] flex w-full max-w-[800px] items-center gap-5 overflow-hidden text-black font-medium justify-between px-6 py-3 rounded-full shadow-sm">
+    <nav className="bg-[#f2f2f2] flex w-full max-w-[800px] items-center gap-5 overflow-hidden text-black font-medium justify-between px-6 py-2 rounded-full shadow-sm">
       <div className="text-[20px] tracking-[1px] font-semibold">
         TALEXA
       </div>
@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         </Link>
         <Link 
           to="/create-job" 
-          className="bg-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition-all"
+          className="bg-gradient-to-r from-[#6d48e5] to-[#9b87f5] text-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition-all"
         >
           CREATE JOB
         </Link>
