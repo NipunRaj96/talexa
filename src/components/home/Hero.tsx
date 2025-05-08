@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Cylinder } from "lucide-react";
 
 const Hero: React.FC = () => {
   return (
@@ -18,10 +17,6 @@ const Hero: React.FC = () => {
       >
         CREATE A JOB POSTING
       </Link>
-      
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 -ml-16 opacity-25 hidden lg:block">
-        <Cylinder size={120} className="text-[#9b87f5]" />
-      </div>
     </section>
   );
 };

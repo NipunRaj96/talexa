@@ -10,7 +10,7 @@ interface StepProps {
 
 const Step: React.FC<StepProps> = ({ number, title, description }) => {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm h-full">
+    <div className="bg-white rounded-2xl p-6 shadow-sm h-full flex flex-col">
       <div className="bg-[#f2f2f2] w-8 h-8 rounded-full flex items-center justify-center mb-4">
         <span className="text-sm">{number}</span>
       </div>
@@ -24,7 +24,7 @@ const HowItWorks: React.FC = () => {
   return (
     <section className="bg-[#f2f2f2] w-full py-16">
       <div className="container mx-auto max-w-5xl px-4">
-        <div className="text-center mb-10">
+        <div className="text-center mb-12">
           <h2 className="text-2xl font-normal mb-2">
             Talexa highlights talent beyond the numbers.
             <br />
@@ -45,7 +45,7 @@ const HowItWorks: React.FC = () => {
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
           
           {/* Steps layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {/* Step 1 - Left */}
             <div className="relative z-10">
               <Step 
@@ -56,7 +56,7 @@ const HowItWorks: React.FC = () => {
             </div>
             
             {/* Step 2 - Right (with offset) */}
-            <div className="relative z-10 md:pt-20">
+            <div className="relative z-10 md:pt-24">
               <Step 
                 number={2}
                 title="Candidates Apply"
@@ -74,7 +74,7 @@ const HowItWorks: React.FC = () => {
             </div>
             
             {/* Step 4 - Right (with offset) */}
-            <div className="relative z-10 md:pt-20">
+            <div className="relative z-10 md:pt-24">
               <Step 
                 number={4}
                 title="Review Top Matches"
