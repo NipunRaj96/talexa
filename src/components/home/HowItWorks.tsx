@@ -24,7 +24,7 @@ const HowItWorks: React.FC = () => {
   return (
     <section className="bg-[#f2f2f2] w-full py-16">
       <div className="container mx-auto max-w-5xl px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-2xl font-normal mb-2">
             Talexa highlights talent beyond the numbers.
             <br />
@@ -40,40 +40,47 @@ const HowItWorks: React.FC = () => {
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative">
-          {/* Line connecting steps */}
-          <div className="absolute hidden md:block left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
+        <div className="flex flex-col relative">
+          {/* Center connecting line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
           
-          <div className="relative z-10">
-            <Step 
-              number={1}
-              title="Create A Job Posting"
-              description="Define your requirements and the skills you're looking for in candidates."
-            />
+          {/* Steps layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+            {/* Step 1 - Left */}
+            <div className="relative z-10">
+              <Step 
+                number={1}
+                title="Create A Job Posting"
+                description="Define your requirements and the skills you're looking for in candidates."
+              />
+            </div>
             
-            <div className="h-16 md:h-48"></div>
+            {/* Step 2 - Right (with offset) */}
+            <div className="relative z-10 md:pt-20">
+              <Step 
+                number={2}
+                title="Candidates Apply"
+                description="Share your unique job link and collect applications with resumes."
+              />
+            </div>
             
-            <Step 
-              number={3}
-              title="AI Magic !!"
-              description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
-            />
-          </div>
-          
-          <div className="relative z-10 md:mt-48">
-            <Step 
-              number={2}
-              title="Candidates Apply"
-              description="Share your unique job link and collect applications with resumes."
-            />
+            {/* Step 3 - Left */}
+            <div className="relative z-10">
+              <Step 
+                number={3}
+                title="AI Magic !!"
+                description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
+              />
+            </div>
             
-            <div className="h-16 md:h-48"></div>
-            
-            <Step 
-              number={4}
-              title="Review Top Matches"
-              description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
-            />
+            {/* Step 4 - Right (with offset) */}
+            <div className="relative z-10 md:pt-20">
+              <Step 
+                number={4}
+                title="Review Top Matches"
+                description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
+              />
+            </div>
           </div>
         </div>
       </div>
