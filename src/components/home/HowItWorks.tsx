@@ -44,42 +44,50 @@ const HowItWorks: React.FC = () => {
           {/* Center connecting line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
           
-          {/* Steps layout */}
+          {/* Steps layout - with equal sized boxes in a ladder pattern */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {/* Step 1 - Left */}
-            <div className="relative z-10">
-              <Step 
-                number={1}
-                title="Create A Job Posting"
-                description="Define your requirements and the skills you're looking for in candidates."
-              />
+            <div className="relative z-10 md:mb-12">
+              <div className="h-full">
+                <Step 
+                  number={1}
+                  title="Create A Job Posting"
+                  description="Define your requirements and the skills you're looking for in candidates."
+                />
+              </div>
             </div>
             
             {/* Step 2 - Right (with offset) */}
-            <div className="relative z-10 md:pt-24">
-              <Step 
-                number={2}
-                title="Candidates Apply"
-                description="Share your unique job link and collect applications with resumes."
-              />
+            <div className="relative z-10 md:mt-24">
+              <div className="h-full">
+                <Step 
+                  number={2}
+                  title="Candidates Apply"
+                  description="Share your unique job link and collect applications with resumes."
+                />
+              </div>
             </div>
             
             {/* Step 3 - Left */}
-            <div className="relative z-10">
-              <Step 
-                number={3}
-                title="AI Magic !!"
-                description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
-              />
+            <div className="relative z-10 md:mb-12">
+              <div className="h-full">
+                <Step 
+                  number={3}
+                  title="AI Magic !!"
+                  description="Our AI scores and ranks candidates based on their skills and experience match to your requirements."
+                />
+              </div>
             </div>
             
             {/* Step 4 - Right (with offset) */}
-            <div className="relative z-10 md:pt-24">
-              <Step 
-                number={4}
-                title="Review Top Matches"
-                description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
-              />
+            <div className="relative z-10 md:mt-24">
+              <div className="h-full">
+                <Step 
+                  number={4}
+                  title="Review Top Matches"
+                  description="Get instant access to the best-matched candidates and make data-driven hiring decisions."
+                />
+              </div>
             </div>
           </div>
         </div>
