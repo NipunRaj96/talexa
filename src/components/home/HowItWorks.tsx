@@ -44,10 +44,10 @@ const HowItWorks: React.FC = () => {
           {/* Center connecting line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
           
-          {/* Steps layout - with equal sized boxes in a ladder pattern */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-16 gap-y-8 lg:gap-y-16">
+          {/* Steps layout - reorganized with consistent spacing */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             {/* Step 1 - Left */}
-            <div className="relative z-10 md:mb-12">
+            <div className="relative z-10">
               <div className="flex justify-end">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -59,8 +59,8 @@ const HowItWorks: React.FC = () => {
               </div>
             </div>
             
-            {/* Step 2 - Right (with offset) */}
-            <div className="relative z-10 md:mt-24">
+            {/* Step 2 - Right */}
+            <div className="relative z-10">
               <div className="flex justify-start">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -73,7 +73,7 @@ const HowItWorks: React.FC = () => {
             </div>
             
             {/* Step 3 - Left */}
-            <div className="relative z-10 md:mb-12">
+            <div className="relative z-10">
               <div className="flex justify-end">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -85,8 +85,8 @@ const HowItWorks: React.FC = () => {
               </div>
             </div>
             
-            {/* Step 4 - Right (with offset) */}
-            <div className="relative z-10 md:mt-24">
+            {/* Step 4 - Right */}
+            <div className="relative z-10">
               <div className="flex justify-start">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
