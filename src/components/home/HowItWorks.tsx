@@ -44,10 +44,10 @@ const HowItWorks: React.FC = () => {
           {/* Center connecting line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0"></div>
           
-          {/* Steps layout - reorganized with consistent spacing */}
+          {/* Steps layout with ladder pattern */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             {/* Step 1 - Left */}
-            <div className="relative z-10">
+            <div className="relative z-10 md:mb-16">
               <div className="flex justify-end">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -59,8 +59,13 @@ const HowItWorks: React.FC = () => {
               </div>
             </div>
             
+            {/* Empty space for Step 2 offset */}
+            <div className="hidden md:block"></div>
+            
             {/* Step 2 - Right */}
-            <div className="relative z-10">
+            <div className="hidden md:block"></div>
+            
+            <div className="relative z-10 md:mt-[-100px]">
               <div className="flex justify-start">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -73,7 +78,7 @@ const HowItWorks: React.FC = () => {
             </div>
             
             {/* Step 3 - Left */}
-            <div className="relative z-10">
+            <div className="relative z-10 md:mb-16 md:mt-[-100px]">
               <div className="flex justify-end">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 
@@ -85,8 +90,13 @@ const HowItWorks: React.FC = () => {
               </div>
             </div>
             
+            {/* Empty space for Step 4 offset */}
+            <div className="hidden md:block"></div>
+            
             {/* Step 4 - Right */}
-            <div className="relative z-10">
+            <div className="hidden md:block"></div>
+            
+            <div className="relative z-10 md:mt-[-100px]">
               <div className="flex justify-start">
                 <div className="w-full h-[200px] max-w-md">
                   <Step 

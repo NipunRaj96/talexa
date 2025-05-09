@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         </Link>
         <Link 
           to="/create-job" 
-          className="bg-gradient-to-r from-[#6d48e5] to-[#9b87f5] text-white px-4 py-1.5 rounded-full shadow-sm hover:shadow-md transition-all"
+          className="bg-transparent border border-black text-black px-4 py-1.5 rounded-full hover:bg-black hover:text-white transition-all"
         >
           CREATE JOB
         </Link>

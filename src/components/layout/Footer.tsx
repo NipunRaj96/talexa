@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full max-w-7xl px-4 py-12">
+    <footer className="w-full max-w-7xl px-4 pb-2 pt-12">
       <div className="flex flex-wrap justify-between items-start">
         <div className="mb-8 md:mb-0">
           <div className="text-xl font-medium tracking-wider mb-1">
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
       
-      <div className="mt-12 text-sm text-center text-gray-500">
+      <div className="mt-6 text-sm text-center text-gray-500">
         © 2025 Talexa. All rights reserved.
       </div>
     </footer>
