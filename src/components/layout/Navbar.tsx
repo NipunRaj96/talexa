@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
       <div className="text-[20px] tracking-[1px] font-semibold">
         TALEXA
       </div>
-      <div className="flex items-center gap-8 text-[15px] tracking-[0.8px]">
+      <div className="flex items-center gap-4 sm:gap-8 text-[15px] tracking-[0.8px]">
         <Link to="/" className="hover:text-gray-600 transition-colors">
           HOME
         </Link>
