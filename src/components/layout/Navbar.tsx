@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-[#f2f2f2] flex w-full max-w-[800px] items-center gap-5 overflow-hidden text-black font-medium justify-between px-6 py-1 rounded-full shadow-sm">
+    <nav className="bg-[#f2f2f2] flex w-full items-center overflow-hidden text-black font-medium justify-between px-8 py-1 rounded-full shadow-sm">
       <div className="text-[20px] tracking-[1px] font-semibold">
         TALEXA
       </div>

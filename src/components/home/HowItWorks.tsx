@@ -48,7 +48,7 @@ const HowItWorks: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
             {/* Step 1 - Left */}
             <div className="relative z-10 md:mb-12">
-              <div className="h-full">
+              <div className="h-full w-full max-w-[360px] mx-auto md:ml-auto md:mr-0">
                 <Step 
                   number={1}
                   title="Create A Job Posting"
@@ -59,7 +59,7 @@ const HowItWorks: React.FC = () => {
             
             {/* Step 2 - Right (with offset) */}
             <div className="relative z-10 md:mt-24">
-              <div className="h-full">
+              <div className="h-full w-full max-w-[360px] mx-auto md:ml-0 md:mr-auto">
                 <Step 
                   number={2}
                   title="Candidates Apply"
@@ -70,7 +70,7 @@ const HowItWorks: React.FC = () => {
             
             {/* Step 3 - Left */}
             <div className="relative z-10 md:mb-12">
-              <div className="h-full">
+              <div className="h-full w-full max-w-[360px] mx-auto md:ml-auto md:mr-0">
                 <Step 
                   number={3}
                   title="AI Magic !!"
@@ -81,7 +81,7 @@ const HowItWorks: React.FC = () => {
             
             {/* Step 4 - Right (with offset) */}
             <div className="relative z-10 md:mt-24">
-              <div className="h-full">
+              <div className="h-full w-full max-w-[360px] mx-auto md:ml-0 md:mr-auto">
                 <Step 
                   number={4}
                   title="Review Top Matches"
