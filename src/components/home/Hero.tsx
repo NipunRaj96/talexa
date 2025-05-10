@@ -13,7 +13,7 @@ const Hero: React.FC = () => {
       
       <Link
         to="/create-job"
-        className="mt-8 px-8 py-3 rounded-full text-white font-medium tracking-[0.8px] bg-gradient-to-r from-[#6d48e5] to-[#9b87f5] hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+        className="mt-8 px-8 py-3 rounded-full text-black font-medium tracking-[0.8px] bg-transparent border border-black hover:bg-black hover:text-white transition-all duration-300 flex items-center justify-center"
       >
         CREATE A JOB POSTING
       </Link>
