@@ -8,20 +8,20 @@ const Navbar: React.FC = () => {
       <div className="text-[20px] tracking-[1px] font-semibold">
         TALEXA
       </div>
-      <div className="flex items-center gap-4 sm:gap-8 text-[15px] tracking-[0.8px] ml-auto">
+      <div className="flex items-center gap-4 sm:gap-8 text-[15px] tracking-[0.8px]">
         <Link to="/" className="hover:text-gray-600 transition-colors">
           HOME
         </Link>
         <Link to="/dashboard" className="hover:text-gray-600 transition-colors">
           DASHBOARD
         </Link>
-        <Link 
-          to="/create-job" 
-          className="bg-transparent border border-black text-black px-4 py-1.5 rounded-full hover:bg-black hover:text-white transition-all"
-        >
-          CREATE JOB
-        </Link>
       </div>
+      <Link 
+        to="/create-job" 
+        className="bg-transparent border border-black text-black px-4 py-1.5 rounded-full hover:bg-black hover:text-white transition-all"
+      >
+        CREATE JOB
+      </Link>
     </nav>
   );
 };
