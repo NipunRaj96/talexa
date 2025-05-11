@@ -4,6 +4,15 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import { useNavigate } from "react-router-dom";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { toast } from "sonner";
 
 interface FormData {
   jobTitle: string;
@@ -14,6 +23,7 @@ interface FormData {
 }
 
 const CreateJobForm: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     jobTitle: "",
     minimumExperience: "",
@@ -23,12 +33,20 @@ const CreateJobForm: React.FC = () => {
   });
   
   const [skillInput, setSkillInput] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+  
+  const handleExperienceChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      minimumExperience: value
     }));
   };
   
@@ -49,11 +67,50 @@ const CreateJobForm: React.FC = () => {
     }));
   };
   
+  const generateUniqueJobId = () => {
+    return `job-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Job posting created:", formData);
-    // Here you would typically send the data to your backend
-    alert("Job posting created successfully!");
+    setIsSubmitting(true);
+    
+    try {
+      // Generate a unique job ID
+      const jobId = generateUniqueJobId();
+      
+      // In a real implementation, we would save this to a database
+      const jobData = {
+        ...formData,
+        id: jobId,
+        createdAt: new Date().toISOString(),
+        status: "active",
+        applicants: 0
+      };
+      
+      console.log("Job posting created:", jobData);
+      
+      // Store job data in localStorage for demonstration purposes
+      // In a real app, this would be saved to a database
+      const existingJobs = JSON.parse(localStorage.getItem("jobPostings") || "[]");
+      localStorage.setItem("jobPostings", JSON.stringify([...existingJobs, jobData]));
+      
+      // Show success message
+      toast("Job posting created successfully!", {
+        description: "A unique application link has been generated."
+      });
+      
+      // Navigate to the dashboard with the job ID
+      setTimeout(() => {
+        navigate(`/dashboard?newJobId=${jobId}`);
+      }, 1500);
+    } catch (error) {
+      console.error("Error creating job posting:", error);
+      toast("Failed to create job posting", {
+        description: "Please try again.",
+      });
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -74,15 +131,22 @@ const CreateJobForm: React.FC = () => {
         
         <div className="space-y-2">
           <Label htmlFor="minimumExperience" className="text-base">Minimum Experience Required</Label>
-          <Input
-            id="minimumExperience"
-            name="minimumExperience"
-            value={formData.minimumExperience}
-            onChange={handleChange}
-            placeholder="e.g. 2 years"
-            className="rounded-lg p-3 text-base"
-            required
-          />
+          <Select 
+            value={formData.minimumExperience} 
+            onValueChange={handleExperienceChange}
+          >
+            <SelectTrigger className="rounded-lg p-3 text-base">
+              <SelectValue placeholder="Select experience level" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="No experience required">No experience required</SelectItem>
+              <SelectItem value="Less than 1 year">Less than 1 year</SelectItem>
+              <SelectItem value="1+ years">1+ years</SelectItem>
+              <SelectItem value="2+ years">2+ years</SelectItem>
+              <SelectItem value="3+ years">3+ years</SelectItem>
+              <SelectItem value="5+ years">5+ years</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         
         <div className="space-y-2">
@@ -158,8 +222,9 @@ const CreateJobForm: React.FC = () => {
           className="w-full mt-6"
           variant="gradient"
           size="talexa"
+          disabled={isSubmitting}
         >
-          CREATE JOB POSTING
+          {isSubmitting ? "CREATING..." : "CREATE JOB POSTING"}
         </Button>
       </div>
     </form>

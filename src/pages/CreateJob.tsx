@@ -3,10 +3,12 @@ import React from "react";
 import Navbar from "../components/layout/Navbar";
 import CreateJobForm from "../components/home/CreateJobForm";
 import Footer from "../components/layout/Footer";
+import { Toaster } from "sonner";
 
 const CreateJob: React.FC = () => {
   return (
     <div className="bg-white flex flex-col items-center min-h-screen">
+      <Toaster position="top-center" />
       <div className="w-full max-w-7xl px-4 py-6 flex flex-col items-center">
         <Navbar />
         <div className="container mx-auto py-16">
