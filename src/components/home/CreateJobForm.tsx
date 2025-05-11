@@ -7,20 +7,18 @@ import { Label } from "../ui/label";
 
 interface FormData {
   jobTitle: string;
-  company: string;
-  location: string;
+  minimumExperience: string;
   description: string;
-  requirements: string;
+  numberOfVacancies: string;
   skills: string[];
 }
 
 const CreateJobForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     jobTitle: "",
-    company: "",
-    location: "",
+    minimumExperience: "",
     description: "",
-    requirements: "",
+    numberOfVacancies: "",
     skills: [],
   });
   
@@ -75,33 +73,35 @@ const CreateJobForm: React.FC = () => {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="company" className="text-base">Company</Label>
+          <Label htmlFor="minimumExperience" className="text-base">Minimum Experience Required</Label>
           <Input
-            id="company"
-            name="company"
-            value={formData.company}
+            id="minimumExperience"
+            name="minimumExperience"
+            value={formData.minimumExperience}
             onChange={handleChange}
-            placeholder="e.g. Talexa Inc."
+            placeholder="e.g. 2 years"
             className="rounded-lg p-3 text-base"
             required
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="location" className="text-base">Location</Label>
+          <Label htmlFor="numberOfVacancies" className="text-base">Number of Vacancies</Label>
           <Input
-            id="location"
-            name="location"
-            value={formData.location}
+            id="numberOfVacancies"
+            name="numberOfVacancies"
+            value={formData.numberOfVacancies}
             onChange={handleChange}
-            placeholder="e.g. Remote, New York, NY"
+            placeholder="e.g. 3"
             className="rounded-lg p-3 text-base"
             required
+            type="number"
+            min="1"
           />
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="description" className="text-base">Job Description</Label>
+          <Label htmlFor="description" className="text-base">Job Description (Optional)</Label>
           <Textarea
             id="description"
             name="description"
@@ -110,21 +110,6 @@ const CreateJobForm: React.FC = () => {
             placeholder="Describe the role and responsibilities"
             className="rounded-lg p-3 text-base min-h-[120px]"
             rows={4}
-            required
-          />
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="requirements" className="text-base">Requirements</Label>
-          <Textarea
-            id="requirements"
-            name="requirements"
-            value={formData.requirements}
-            onChange={handleChange}
-            placeholder="List the qualifications and experience needed"
-            className="rounded-lg p-3 text-base min-h-[120px]"
-            rows={4}
-            required
           />
         </div>
         
