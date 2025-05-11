@@ -35,7 +35,7 @@
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Html , CSS (Figma for designing)
+- **Frontend:** Html , CSS , Figma for designing , Lovabel for basic structuring
 - **Backend:** Typescript , Firebase
 - **AI/NLP:** spaCy / NLTK / Custom skill-matching logic
 - **Storage:** Local / Firebase
