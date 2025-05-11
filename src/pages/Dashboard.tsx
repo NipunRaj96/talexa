@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import Layout from "../components/layout/Layout";
 import { Button } from "../components/ui/button";
 import { Eye, Share, Edit, Trash2 } from "lucide-react";
 import { toast, Toaster } from "sonner";
@@ -101,9 +102,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="bg-white flex flex-col overflow-hidden items-center pt-[26px] pb-4">
-      <Toaster position="top-center" />
-      <Navbar />
+    <Layout>
       <div className="container mx-auto py-16">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-black text-[40px] font-medium tracking-[2px] max-md:text-[30px]">
@@ -306,8 +305,7 @@ const Dashboard: React.FC = () => {
           )}
         </div>
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
