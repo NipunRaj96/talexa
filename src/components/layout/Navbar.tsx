@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
         </div>
         <Link 
           to="/create-job" 
-          className="bg-transparent border border-black text-black px-4 py-1.5 rounded-full hover:bg-black hover:text-white transition-all"
+          className="hover:text-gray-600 transition-colors"
         >
           CREATE JOB
         </Link>
