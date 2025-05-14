@@ -34,7 +34,7 @@ const HowItWorks: React.FC = () => {
           <div className="w-0.5 h-12 bg-gray-300 mx-auto my-4"></div>
           
           <Button 
-            className="bg-white text-black rounded-full px-8 py-2 text-lg font-medium"
+            className="bg-white text-black rounded-full px-8 py-2 text-lg font-medium hover:bg-white cursor-default"
           >
             HOW IT WORKS
           </Button>
