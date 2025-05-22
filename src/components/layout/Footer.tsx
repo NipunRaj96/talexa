@@ -16,36 +16,25 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="flex gap-6">
-          <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.5 11.25H10.5C11.3284 11.25 12 10.5784 12 9.75C12 8.92157 11.3284 8.25 10.5 8.25H7.5V11.25Z" fill="currentColor"/>
-              <path d="M7.5 15.75H10.875C11.7034 15.75 12.375 15.0784 12.375 14.25C12.375 13.4216 11.7034 12.75 10.875 12.75H7.5V15.75Z" fill="currentColor"/>
-              <path fillRule="evenodd" clipRule="evenodd" d="M5.4 2.16C3.75 2.16 2.4 3.512 2.4 5.16V18.84C2.4 20.488 3.75 21.84 5.4 21.84H18.6C20.25 21.84 21.6 20.488 21.6 18.84V5.16C21.6 3.512 20.25 2.16 18.6 2.16H5.4ZM14.4 7.68C14.4 7.04 14.92 6.52 15.56 6.52H18.44C19.08 6.52 19.6 7.04 19.6 7.68C19.6 8.32 19.08 8.84 18.44 8.84H15.56C14.92 8.84 14.4 8.32 14.4 7.68ZM6 7.4V17.4H11.7C13.7 17.4 15.3 15.8 15.3 13.8C15.3 12.5 14.6 11.3 13.5 10.7C14.2 10 14.7 9 14.7 8C14.7 6 13.1 4.4 11.1 4.4H6V7.4ZM15.6 14.7H19.6V10.7H15.6V14.7Z" fill="currentColor"/>
-            </svg>
-          </a>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.5 8C7.32843 8 8 7.32843 8 6.5C8 5.67157 7.32843 5 6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8Z" fill="currentColor"/>
-              <path d="M5 10C5 9.44772 5.44772 9 6 9H7C7.55228 9 8 9.44771 8 10V18C8 18.5523 7.55228 19 7 19H6C5.44772 19 5 18.5523 5 18V10Z" fill="currentColor"/>
-              <path d="M11 19H12C12.5523 19 13 18.5523 13 18V13.5C13 12 16 11 16 13V18.0004C16 18.5527 16.4477 19 17 19H18C18.5523 19 19 18.5523 19 18V12C19 10 17.5 9 15.5 9C13.5 9 13 10.5 13 10.5V10C13 9.44771 12.5523 9 12 9H11C10.4477 9 10 9.44772 10 10V18C10 18.5523 10.4477 19 11 19Z" fill="currentColor"/>
-              <path fillRule="evenodd" clipRule="evenodd" d="M2 4.5C2 3.11929 3.11929 2 4.5 2H19.5C20.8807 2 22 3.11929 22 4.5V19.5C22 20.8807 20.8807 22 19.5 22H4.5C3.11929 22 2 20.8807 2 19.5V4.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5V19.5C4 19.7761 4.22386 20 4.5 20H19.5C19.7761 20 20 19.7761 20 19.5V4.5C20 4.22386 19.7761 4 19.5 4H4.5Z" fill="currentColor"/>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+ <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
+ <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
             </svg>
           </a>
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5229 6.47715 22 12 22C17.5229 22 22 17.5229 22 12C22 6.47715 17.5229 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM9 11.5C9 10.1193 10.1193 9 11.5 9H14.5C15.8807 9 17 10.1193 17 11.5V14.5C17 15.8807 15.8807 17 14.5 17H11.5C10.1193 17 9 15.8807 9 14.5V11.5ZM11.5 11C11.2239 11 11 11.2239 11 11.5V14.5C11 14.7761 11.2239 15 11.5 15H14.5C14.7761 15 15 14.7761 15 14.5V11.5C15 11.2239 14.7761 11 14.5 11H11.5Z" fill="currentColor"/>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+ <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
             </svg>
           </a>
           <a href="https://your-portfolio-url.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 7H5C3.89543 7 3 7.89543 3 9V17C3 18.1046 3.89543 19 5 19H19C20.1046 19 21 18.1046 21 17V9C21 7.89543 20.1046 7 19 7ZM5 9V17H19V9H5Z" fill="currentColor"/>
-              <path d="M10 12H14V14H10V12Z" fill="currentColor"/>
-              <path d="M15 5H9C8.44772 5 8 5.44772 8 6V7H16V6C16 5.44772 15.5523 5 15 5Z" fill="currentColor"/>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+ <path fill-rule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z" clip-rule="evenodd"/>
             </svg>
           </a>
         </div>
       </div>
-      
+
       <div className="mt-6 text-sm text-center text-gray-500">
         © 2025 Talexa. All rights reserved.
       </div>
