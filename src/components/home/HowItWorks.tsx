@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "../ui/button";
 
@@ -10,31 +9,31 @@ interface StepProps {
 
 const Step: React.FC<StepProps> = ({ number, title, description }) => {
   return (
-    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm h-full flex flex-col">
-      <div className="bg-[#f2f2f2] w-8 h-8 rounded-full flex items-center justify-center mb-4">
-        <span className="text-sm">{number}</span>
+    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm h-full flex flex-col">
+      <div className="bg-[#f2f2f2] w-10 h-10 rounded-full flex items-center justify-center mb-5">
+        <span className="text-base font-medium">{number}</span>
       </div>
-      <h3 className="text-lg sm:text-xl font-medium mb-2">{title}</h3>
-      <p className="text-gray-700 text-sm leading-relaxed">{description}</p>
+      <h3 className="text-xl sm:text-2xl font-medium mb-3">{title}</h3>
+      <p className="text-gray-700 text-base leading-relaxed">{description}</p>
     </div>
   );
 };
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="bg-[#f2f2f2] w-full py-12 sm:py-16">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-xl sm:text-2xl font-normal mb-2 px-4">
+    <section className="bg-[#f2f2f2] w-full py-16 sm:py-20 lg:py-24">
+      <div className="container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-normal mb-4 px-4">
             Talexa highlights talent beyond the numbers.
             <br className="hidden sm:block" />
             <span className="block sm:inline"> Smarter shortlisting, without the bias.</span>
           </h2>
           
-          <div className="w-0.5 h-8 sm:h-12 bg-gray-300 mx-auto my-4"></div>
+          <div className="w-0.5 h-12 sm:h-16 bg-gray-300 mx-auto my-6"></div>
           
           <Button 
-            className="bg-white text-black rounded-full px-6 sm:px-8 py-2 text-base sm:text-lg font-medium hover:bg-white cursor-default"
+            className="bg-white text-black rounded-full px-8 sm:px-10 py-3 text-lg sm:text-xl font-medium hover:bg-white cursor-default"
           >
             HOW IT WORKS
           </Button>
@@ -45,7 +44,7 @@ const HowItWorks: React.FC = () => {
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 -translate-x-1/2 z-0 hidden md:block"></div>
           
           {/* Mobile layout */}
-          <div className="md:hidden space-y-6">
+          <div className="md:hidden space-y-8">
             <Step 
               number={1}
               title="Create A Job Posting"
@@ -69,10 +68,9 @@ const HowItWorks: React.FC = () => {
           </div>
           
           {/* Desktop layout */}
-          <div className="hidden md:grid md:grid-cols-2 gap-8 md:gap-12">
+          <div className="hidden md:grid md:grid-cols-2 gap-12 lg:gap-16">
             {/* Left side */}
-            <div className="space-y-24">
-              {/* Step 1 */}
+            <div className="space-y-32">
               <div className="relative z-10">
                 <div className="flex justify-end">
                   <div className="w-full max-w-md">
@@ -85,7 +83,6 @@ const HowItWorks: React.FC = () => {
                 </div>
               </div>
               
-              {/* Step 3 */}
               <div className="relative z-10">
                 <div className="flex justify-end">
                   <div className="w-full max-w-md">
@@ -100,8 +97,7 @@ const HowItWorks: React.FC = () => {
             </div>
             
             {/* Right side */}
-            <div className="space-y-24 md:mt-24">
-              {/* Step 2 */}
+            <div className="space-y-32 md:mt-32">
               <div className="relative z-10">
                 <div className="flex justify-start">
                   <div className="w-full max-w-md">
@@ -114,7 +110,6 @@ const HowItWorks: React.FC = () => {
                 </div>
               </div>
               
-              {/* Step 4 */}
               <div className="relative z-10">
                 <div className="flex justify-start">
                   <div className="w-full max-w-md">

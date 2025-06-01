@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,13 +12,13 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-[#f2f2f2] flex w-full items-center overflow-hidden text-black font-medium justify-between px-4 sm:px-6 lg:px-8 py-1 rounded-full shadow-sm">
-      <div className="text-lg sm:text-xl lg:text-[20px] tracking-[1px] font-semibold">
+    <nav className="bg-[#f2f2f2] flex w-full items-center overflow-hidden text-black font-medium justify-between px-6 sm:px-8 lg:px-10 py-3 rounded-full shadow-sm">
+      <div className="text-xl sm:text-2xl lg:text-[24px] tracking-[1px] font-semibold">
         TALEXA
       </div>
-      <div className="flex items-center gap-2 sm:gap-4 lg:gap-8">
-        <div className="flex items-center gap-2 sm:gap-4 lg:gap-8 text-xs sm:text-sm lg:text-[15px] tracking-[0.8px]">
-          <Link to="/" className="hover:text-gray-600 transition-colors">
+      <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
+        <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 text-sm sm:text-base tracking-[0.8px]">
+          <Link to="/" className="hover:text-gray-600 transition-colors hidden sm:block">
             HOME
           </Link>
           {user && (
@@ -29,10 +28,10 @@ const Navbar: React.FC = () => {
           )}
         </div>
         {user ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link 
               to="/create-job" 
-              className="hover:text-gray-600 transition-colors text-xs sm:text-sm lg:text-[15px] tracking-[0.8px]"
+              className="hover:text-gray-600 transition-colors text-sm sm:text-base tracking-[0.8px] hidden sm:block"
             >
               CREATE JOB
             </Link>
@@ -40,16 +39,16 @@ const Navbar: React.FC = () => {
               variant="ghost"
               size="sm"
               onClick={handleSignOut}
-              className="text-xs sm:text-sm lg:text-[15px] tracking-[0.8px]"
+              className="text-sm sm:text-base tracking-[0.8px] gap-2"
             >
-              <LogOut className="h-4 w-4 mr-1" />
-              LOGOUT
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">LOGOUT</span>
             </Button>
           </div>
         ) : (
           <Link 
             to="/auth" 
-            className="hover:text-gray-600 transition-colors text-xs sm:text-sm lg:text-[15px] tracking-[0.8px]"
+            className="hover:text-gray-600 transition-colors text-sm sm:text-base tracking-[0.8px]"
           >
             LOGIN
           </Link>
