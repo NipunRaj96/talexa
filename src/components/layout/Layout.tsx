@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <main className="w-full flex-grow">
         {children}
       </main>
-      <div className="w-full max-w-7xl px-6 sm:px-8 lg:px-12 flex justify-center mt-16 sm:mt-20">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-center mt-12 sm:mt-16 lg:mt-20">
         <Footer />
       </div>
     </div>
