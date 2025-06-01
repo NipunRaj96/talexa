@@ -5,68 +5,44 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { Button } from "../components/ui/button";
 import { Toaster, toast } from "sonner";
-
-interface JobPosting {
-  id: string;
-  jobTitle: string;
-  minimumExperience: string;
-  description: string;
-  numberOfVacancies: string;
-  skills: string[];
-  createdAt: string;
-  status: "active" | "closed";
-  applicants: number;
-}
+import { useJobs, JobPosting } from "@/hooks/useJobs";
 
 const ApplyJob: React.FC = () => {
   const { jobId } = useParams<{ jobId: string }>();
   const [job, setJob] = useState<JobPosting | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { getJobById } = useJobs();
 
   useEffect(() => {
-    const fetchJobDetails = () => {
-      console.log("Fetching job details for ID:", jobId);
-      
-      // First try to get from localStorage
-      const storedJobs = localStorage.getItem("jobPostings");
-      console.log("Stored jobs:", storedJobs);
-      
-      if (storedJobs) {
-        try {
-          const jobs = JSON.parse(storedJobs);
-          const foundJob = jobs.find((j: JobPosting) => j.id === jobId);
-          
-          if (foundJob) {
-            console.log("Job found:", foundJob);
-            if (foundJob.status === "closed") {
-              setError("This job posting is no longer accepting applications.");
-            }
-            setJob(foundJob);
-          } else {
-            console.log("Job not found in localStorage");
-            // Job not found in localStorage - this could be a shared link
-            setError("Job posting not found. The link may be expired or invalid.");
-          }
-        } catch (parseError) {
-          console.error("Error parsing stored jobs:", parseError);
-          setError("Error loading job data.");
-        }
-      } else {
-        console.log("No stored jobs found");
-        // No jobs in localStorage - could be a fresh browser or shared link
-        setError("Job posting not found. The link may be expired or invalid.");
+    const fetchJobDetails = async () => {
+      if (!jobId) {
+        setError("Invalid job link.");
+        setLoading(false);
+        return;
       }
-      setLoading(false);
+
+      try {
+        const jobData = await getJobById(jobId);
+        
+        if (jobData) {
+          if (jobData.status === "closed") {
+            setError("This job posting is no longer accepting applications.");
+          }
+          setJob(jobData);
+        } else {
+          setError("Job posting not found. The link may be expired or invalid.");
+        }
+      } catch (error) {
+        console.error("Error fetching job details:", error);
+        setError("Error loading job data.");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    if (jobId) {
-      fetchJobDetails();
-    } else {
-      setError("Invalid job link.");
-      setLoading(false);
-    }
-  }, [jobId]);
+    fetchJobDetails();
+  }, [jobId, getJobById]);
 
   if (loading) {
     return (
@@ -102,7 +78,7 @@ const ApplyJob: React.FC = () => {
                 <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">{error}</h2>
                 <p className="text-gray-600 mb-6 text-sm sm:text-base">
                   {error.includes("not found") 
-                    ? "This could happen if the job posting was created in a different browser session. Please contact the recruiter for a valid link."
+                    ? "This job posting may have been removed or the link is incorrect."
                     : "Please try again or contact support if the problem persists."
                   }
                 </p>
@@ -126,7 +102,7 @@ const ApplyJob: React.FC = () => {
             <div className="max-w-4xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-md overflow-hidden">
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 sm:p-8 text-white">
-                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">{job.jobTitle}</h1>
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">{job.job_title}</h1>
                   <p className="opacity-90">Apply for this position</p>
                 </div>
                 
@@ -134,12 +110,12 @@ const ApplyJob: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Experience Required</h3>
-                      <p className="mt-1 text-lg">{job.minimumExperience}</p>
+                      <p className="mt-1 text-lg">{job.minimum_experience}</p>
                     </div>
                     
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Number of Vacancies</h3>
-                      <p className="mt-1 text-lg">{job.numberOfVacancies}</p>
+                      <p className="mt-1 text-lg">{job.number_of_vacancies}</p>
                     </div>
                   </div>
                   

@@ -1,73 +1,25 @@
 
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import { Button } from "../components/ui/button";
 import { Eye, Share, Edit, Trash2 } from "lucide-react";
 import { toast, Toaster } from "sonner";
-
-interface JobPosting {
-  id: string;
-  jobTitle: string;
-  minimumExperience: string;
-  description: string;
-  numberOfVacancies: string;
-  skills: string[];
-  createdAt: string;
-  status: "active" | "closed";
-  applicants: number;
-}
+import { useJobs } from "@/hooks/useJobs";
 
 const Dashboard: React.FC = () => {
-  const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);
-  const location = useLocation();
+  const { jobs, loading, updateJob, deleteJob } = useJobs();
   const navigate = useNavigate();
   const [showShareModal, setShowShareModal] = useState<string | null>(null);
-  
-  // Load job postings from localStorage on component mount
-  useEffect(() => {
-    const storedJobs = localStorage.getItem("jobPostings");
-    if (storedJobs) {
-      setJobPostings(JSON.parse(storedJobs));
-    }
-    
-    // Check for new job ID in URL query params
-    const queryParams = new URLSearchParams(location.search);
-    const newJobId = queryParams.get('newJobId');
-    
-    if (newJobId) {
-      toast("Job posting added successfully!", {
-        description: "Your new job posting is now visible in the dashboard."
-      });
-      // Clean up URL
-      navigate('/dashboard', { replace: true });
-    }
-  }, [location.search, navigate]);
 
-  const handleDeleteJob = (jobId: string) => {
+  const handleDeleteJob = async (jobId: string) => {
     if (window.confirm("Are you sure you want to delete this job posting?")) {
-      // Filter out the job with the specified ID
-      const updatedJobs = jobPostings.filter(job => job.id !== jobId);
-      // Save updated jobs to localStorage
-      localStorage.setItem("jobPostings", JSON.stringify(updatedJobs));
-      // Update state
-      setJobPostings(updatedJobs);
-      toast("Job posting deleted successfully!");
+      await deleteJob(jobId);
     }
   };
 
-  const handleStatusChange = (jobId: string, newStatus: "active" | "closed") => {
-    // Create a new array with the updated job
-    const updatedJobs = jobPostings.map(job => 
-      job.id === jobId ? { ...job, status: newStatus } : job
-    );
-    // Save updated jobs to localStorage
-    localStorage.setItem("jobPostings", JSON.stringify(updatedJobs));
-    // Update state
-    setJobPostings(updatedJobs);
-    toast(`Job posting is now ${newStatus}`);
+  const handleStatusChange = async (jobId: string, newStatus: "active" | "closed") => {
+    await updateJob(jobId, { status: newStatus });
   };
 
   const handleShareJob = (jobId: string) => {
@@ -101,8 +53,21 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <Layout>
+        <div className="container mx-auto py-16">
+          <div className="flex justify-center items-center h-40">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
+      <Toaster position="top-center" />
       <div className="container mx-auto py-16">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-black text-[40px] font-medium tracking-[2px] max-md:text-[30px]">
@@ -118,7 +83,7 @@ const Dashboard: React.FC = () => {
         <div className="bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8 shadow-sm">
           <h2 className="text-[28px] font-medium tracking-[1.4px] mb-6">Your Job Postings</h2>
           
-          {jobPostings.length > 0 ? (
+          {jobs.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-lg overflow-hidden shadow-sm">
                 <thead className="bg-[rgba(233,233,233,0.8)]">
@@ -133,10 +98,10 @@ const Dashboard: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobPostings.map((job) => (
+                  {jobs.map((job) => (
                     <tr key={job.id} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
                       <td className="p-4">
-                        <div className="font-medium">{job.jobTitle}</div>
+                        <div className="font-medium">{job.job_title}</div>
                         <div className="text-sm text-gray-500 flex flex-wrap gap-1">
                           {job.skills.slice(0, 3).map((skill, idx) => (
                             <span key={idx} className="bg-gray-100 px-2 py-0.5 rounded-full text-xs">
@@ -148,8 +113,8 @@ const Dashboard: React.FC = () => {
                           )}
                         </div>
                       </td>
-                      <td className="p-4">{job.minimumExperience}</td>
-                      <td className="p-4">{job.numberOfVacancies}</td>
+                      <td className="p-4">{job.minimum_experience}</td>
+                      <td className="p-4">{job.number_of_vacancies}</td>
                       <td className="p-4">{job.applicants}</td>
                       <td className="p-4">
                         <div className="flex items-center">
@@ -172,7 +137,7 @@ const Dashboard: React.FC = () => {
                         </div>
                       </td>
                       <td className="p-4">
-                        {new Date(job.createdAt).toLocaleDateString()}
+                        {new Date(job.created_at).toLocaleDateString()}
                       </td>
                       <td className="p-4">
                         <div className="flex gap-2 justify-center">
@@ -236,7 +201,7 @@ const Dashboard: React.FC = () => {
                                   Close
                                 </Button>
                                 <Button 
-                                  onClick={() => handleShare(job.id, job.jobTitle)}
+                                  onClick={() => handleShare(job.id, job.job_title)}
                                   variant="gradient"
                                   className="flex items-center gap-2"
                                 >
@@ -268,7 +233,7 @@ const Dashboard: React.FC = () => {
         <div className="mt-12 bg-[rgba(233,233,233,0.5)] rounded-[20px] p-8 shadow-sm">
           <h2 className="text-[28px] font-medium tracking-[1.4px] mb-6">Recent Activity</h2>
           
-          {jobPostings.length > 0 ? (
+          {jobs.length > 0 ? (
             <div className="space-y-4">
               <div className="bg-white p-4 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
                 <div className="bg-blue-100 p-2 rounded-full">
@@ -280,20 +245,8 @@ const Dashboard: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium">New job posting created: {jobPostings[0].jobTitle}</p>
-                  <p className="text-sm text-gray-500">{new Date(jobPostings[0].createdAt).toLocaleString()}</p>
-                </div>
-              </div>
-              
-              <div className="bg-white p-4 rounded-lg flex items-center gap-4 shadow-sm hover:shadow-md transition-all">
-                <div className="bg-green-100 p-2 rounded-full">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-medium">Shareable link generated for {jobPostings[0].jobTitle}</p>
-                  <p className="text-sm text-gray-500">{new Date(jobPostings[0].createdAt).toLocaleString()}</p>
+                  <p className="font-medium">New job posting created: {jobs[0].job_title}</p>
+                  <p className="text-sm text-gray-500">{new Date(jobs[0].created_at).toLocaleString()}</p>
                 </div>
               </div>
             </div>

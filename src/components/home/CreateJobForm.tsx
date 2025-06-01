@@ -13,22 +13,24 @@ import {
 } from "../ui/select";
 import { toast } from "sonner";
 import { Eye, Share, Copy, ExternalLink } from "lucide-react";
+import { useJobs } from "@/hooks/useJobs";
 
 interface FormData {
-  jobTitle: string;
-  minimumExperience: string;
+  job_title: string;
+  minimum_experience: string;
   description: string;
-  numberOfVacancies: string;
+  number_of_vacancies: string;
   skills: string[];
 }
 
 const CreateJobForm: React.FC = () => {
   const navigate = useNavigate();
+  const { createJob } = useJobs();
   const [formData, setFormData] = useState<FormData>({
-    jobTitle: "",
-    minimumExperience: "",
+    job_title: "",
+    minimum_experience: "",
     description: "",
-    numberOfVacancies: "",
+    number_of_vacancies: "",
     skills: [],
   });
   
@@ -48,7 +50,7 @@ const CreateJobForm: React.FC = () => {
   const handleExperienceChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
-      minimumExperience: value
+      minimum_experience: value
     }));
   };
   
@@ -69,10 +71,6 @@ const CreateJobForm: React.FC = () => {
     }));
   };
   
-  const generateUniqueJobId = () => {
-    return `job-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  };
-  
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(jobLink);
@@ -87,8 +85,8 @@ const CreateJobForm: React.FC = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Job Application: ${formData.jobTitle}`,
-          text: `Apply for the ${formData.jobTitle} position through this link:`,
+          title: `Job Application: ${formData.job_title}`,
+          text: `Apply for the ${formData.job_title} position through this link:`,
           url: jobLink
         });
         toast.success("Link shared successfully!");
@@ -107,47 +105,28 @@ const CreateJobForm: React.FC = () => {
     window.open(jobLink, '_blank');
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
     try {
-      // Generate a unique job ID
-      const jobId = generateUniqueJobId();
-      
-      // Use the current domain for the shareable link
-      const currentDomain = window.location.origin;
-      const shareableLink = `${currentDomain}/apply/${jobId}`;
-      setJobLink(shareableLink);
-      
-      // Create job data
       const jobData = {
         ...formData,
-        id: jobId,
-        createdAt: new Date().toISOString(),
-        status: "active" as const,
-        applicants: 0
+        status: "active" as const
       };
       
-      console.log("Job posting created:", jobData);
-      console.log("Shareable link:", shareableLink);
+      const createdJob = await createJob(jobData);
       
-      // Store job data in localStorage
-      const existingJobs = JSON.parse(localStorage.getItem("jobPostings") || "[]");
-      localStorage.setItem("jobPostings", JSON.stringify([...existingJobs, jobData]));
-      
-      // Show success message
-      toast.success("Job posting created successfully!", {
-        description: "A unique application link has been generated."
-      });
-      
-      setJobCreated(true);
-      setIsSubmitting(false);
+      if (createdJob) {
+        const currentDomain = window.location.origin;
+        const shareableLink = `${currentDomain}/apply/${createdJob.id}`;
+        setJobLink(shareableLink);
+        setJobCreated(true);
+      }
     } catch (error) {
       console.error("Error creating job posting:", error);
-      toast.error("Failed to create job posting", {
-        description: "Please try again.",
-      });
+      toast.error("Failed to create job posting");
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -227,11 +206,11 @@ const CreateJobForm: React.FC = () => {
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-md">
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="jobTitle" className="text-base">Job Title</Label>
+          <Label htmlFor="job_title" className="text-base">Job Title</Label>
           <Input
-            id="jobTitle"
-            name="jobTitle"
-            value={formData.jobTitle}
+            id="job_title"
+            name="job_title"
+            value={formData.job_title}
             onChange={handleChange}
             placeholder="e.g. Frontend Developer"
             className="rounded-lg p-3 text-base"
@@ -240,9 +219,9 @@ const CreateJobForm: React.FC = () => {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="minimumExperience" className="text-base">Minimum Experience Required</Label>
+          <Label htmlFor="minimum_experience" className="text-base">Minimum Experience Required</Label>
           <Select 
-            value={formData.minimumExperience} 
+            value={formData.minimum_experience} 
             onValueChange={handleExperienceChange}
           >
             <SelectTrigger className="rounded-lg p-3 text-base">
@@ -260,11 +239,11 @@ const CreateJobForm: React.FC = () => {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="numberOfVacancies" className="text-base">Number of Vacancies</Label>
+          <Label htmlFor="number_of_vacancies" className="text-base">Number of Vacancies</Label>
           <Input
-            id="numberOfVacancies"
-            name="numberOfVacancies"
-            value={formData.numberOfVacancies}
+            id="number_of_vacancies"
+            name="number_of_vacancies"
+            value={formData.number_of_vacancies}
             onChange={handleChange}
             placeholder="e.g. 3"
             className="rounded-lg p-3 text-base"
