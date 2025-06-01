@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -13,7 +12,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { toast } from "sonner";
-import { Eye, Share } from "lucide-react";
+import { Eye, Share, Copy, ExternalLink } from "lucide-react";
 
 interface FormData {
   jobTitle: string;
@@ -74,9 +73,14 @@ const CreateJobForm: React.FC = () => {
     return `job-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   };
   
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(jobLink);
-    toast("Link copied to clipboard!");
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(jobLink);
+      toast.success("Link copied to clipboard!");
+    } catch (error) {
+      console.error("Failed to copy link:", error);
+      toast.error("Failed to copy link");
+    }
   };
 
   const handleShare = async () => {
@@ -87,13 +91,20 @@ const CreateJobForm: React.FC = () => {
           text: `Apply for the ${formData.jobTitle} position through this link:`,
           url: jobLink
         });
-        toast("Link shared successfully!");
+        toast.success("Link shared successfully!");
       } catch (error) {
-        console.error("Error sharing:", error);
+        if (error instanceof Error && error.name !== 'AbortError') {
+          console.error("Error sharing:", error);
+          toast.error("Failed to share link");
+        }
       }
     } else {
       handleCopyLink();
     }
+  };
+
+  const handleOpenInNewTab = () => {
+    window.open(jobLink, '_blank');
   };
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -104,28 +115,29 @@ const CreateJobForm: React.FC = () => {
       // Generate a unique job ID
       const jobId = generateUniqueJobId();
       
-      // Generate a shareable link
-      const shareableLink = `${window.location.origin}/apply/${jobId}`;
+      // Use the current domain for the shareable link
+      const currentDomain = window.location.origin;
+      const shareableLink = `${currentDomain}/apply/${jobId}`;
       setJobLink(shareableLink);
       
-      // In a real implementation, we would save this to a database
+      // Create job data
       const jobData = {
         ...formData,
         id: jobId,
         createdAt: new Date().toISOString(),
-        status: "active",
+        status: "active" as const,
         applicants: 0
       };
       
       console.log("Job posting created:", jobData);
+      console.log("Shareable link:", shareableLink);
       
-      // Store job data in localStorage for demonstration purposes
-      // In a real app, this would be saved to a database
+      // Store job data in localStorage
       const existingJobs = JSON.parse(localStorage.getItem("jobPostings") || "[]");
       localStorage.setItem("jobPostings", JSON.stringify([...existingJobs, jobData]));
       
       // Show success message
-      toast("Job posting created successfully!", {
+      toast.success("Job posting created successfully!", {
         description: "A unique application link has been generated."
       });
       
@@ -133,7 +145,7 @@ const CreateJobForm: React.FC = () => {
       setIsSubmitting(false);
     } catch (error) {
       console.error("Error creating job posting:", error);
-      toast("Failed to create job posting", {
+      toast.error("Failed to create job posting", {
         description: "Please try again.",
       });
       setIsSubmitting(false);
@@ -142,57 +154,67 @@ const CreateJobForm: React.FC = () => {
   
   if (jobCreated) {
     return (
-      <div className="w-full max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-md text-center">
+      <div className="w-full max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-md text-center">
         <div className="mb-8">
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
           </div>
-          <h2 className="text-2xl font-semibold mb-2">Job Posting Created!</h2>
-          <p className="text-gray-600 mb-6">Your job posting has been created successfully. Share the unique link with candidates.</p>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-2">Job Posting Created!</h2>
+          <p className="text-gray-600 mb-6 text-sm sm:text-base">Your job posting has been created successfully. Share the unique link with candidates.</p>
           
           <div className="flex items-center justify-between p-3 border rounded-lg bg-gray-50 mb-6">
-            <p className="text-sm text-gray-700 truncate">{jobLink}</p>
+            <p className="text-xs sm:text-sm text-gray-700 truncate flex-1 mr-2">{jobLink}</p>
             <button 
               onClick={handleCopyLink}
-              className="ml-2 p-2 text-blue-600 hover:text-blue-800"
+              className="ml-2 p-2 text-blue-600 hover:text-blue-800 flex-shrink-0"
               title="Copy link"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
+              <Copy className="h-4 w-4" />
             </button>
           </div>
           
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
             <Button 
               onClick={handleCopyLink} 
               variant="outline" 
-              className="flex items-center gap-2"
+              className="flex items-center justify-center gap-2 text-sm"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
+              <Copy className="h-4 w-4" />
               Copy Link
             </Button>
             <Button 
               onClick={handleShare}
-              variant="gradient" 
-              className="flex items-center gap-2"
+              variant="outline" 
+              className="flex items-center justify-center gap-2 text-sm"
             >
-              <Share className="h-5 w-5" />
+              <Share className="h-4 w-4" />
               Share Link
+            </Button>
+            <Button 
+              onClick={handleOpenInNewTab}
+              variant="outline" 
+              className="flex items-center justify-center gap-2 text-sm"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Preview
             </Button>
           </div>
           
-          <div className="flex justify-center gap-4">
-            <Button variant="outline" onClick={() => navigate('/dashboard')}>
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            <Button 
+              variant="outline" 
+              onClick={() => navigate('/dashboard')}
+              className="w-full sm:w-auto"
+            >
               View All Jobs
             </Button>
-            <Button variant="gradient" onClick={() => setJobCreated(false)}>
+            <Button 
+              variant="gradient" 
+              onClick={() => setJobCreated(false)}
+              className="w-full sm:w-auto"
+            >
               Create Another Job
             </Button>
           </div>
@@ -202,7 +224,7 @@ const CreateJobForm: React.FC = () => {
   }
   
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-md">
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-md">
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="jobTitle" className="text-base">Job Title</Label>
@@ -274,6 +296,12 @@ const CreateJobForm: React.FC = () => {
               onChange={(e) => setSkillInput(e.target.value)}
               placeholder="e.g. React, TypeScript"
               className="rounded-lg p-3 text-base"
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleAddSkill();
+                }
+              }}
             />
             <Button 
               type="button" 
@@ -289,13 +317,13 @@ const CreateJobForm: React.FC = () => {
               {formData.skills.map((skill, index) => (
                 <div 
                   key={index} 
-                  className="bg-[#f2f2f2] px-3 py-1 rounded-full flex items-center gap-2"
+                  className="bg-[#f2f2f2] px-3 py-1 rounded-full flex items-center gap-2 text-sm"
                 >
                   <span>{skill}</span>
                   <button 
                     type="button" 
                     onClick={() => handleRemoveSkill(skill)}
-                    className="text-sm hover:text-red-500"
+                    className="text-sm hover:text-red-500 ml-1"
                   >
                     ×
                   </button>
