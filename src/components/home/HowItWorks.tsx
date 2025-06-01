@@ -22,9 +22,9 @@ const Step: React.FC<StepProps> = ({ number, title, description }) => {
 const HowItWorks: React.FC = () => {
   return (
     <section className="bg-[#f2f2f2] w-full py-16 sm:py-20 lg:py-24">
-      <div className="container mx-auto max-w-6xl px-6 sm:px-8 lg:px-12">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-normal mb-4 px-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-normal mb-4 px-4 leading-relaxed sm:leading-normal">
             Talexa highlights talent beyond the numbers.
             <br className="hidden sm:block" />
             <span className="block sm:inline"> Smarter shortlisting, without the bias.</span>
