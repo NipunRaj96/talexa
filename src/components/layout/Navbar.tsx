@@ -12,11 +12,11 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-[#f2f2f2] flex w-full items-center overflow-hidden text-black font-medium justify-between px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-full shadow-sm">
-      <Link to="/" className="text-lg sm:text-xl lg:text-2xl tracking-[1px] font-semibold hover:opacity-80 transition-opacity">
+    <nav className="bg-[#f2f2f2] flex w-full items-center overflow-hidden text-black font-medium justify-between px-4 sm:px-6 lg:px-8 py-0.5 sm:py-1 rounded-full shadow-sm">
+      <Link to="/" className="text-base sm:text-lg lg:text-xl tracking-[1px] font-semibold hover:opacity-80 transition-opacity py-0.5">
         TALEXA
       </Link>
-      <div className="flex items-center gap-3 sm:gap-5 lg:gap-8">
+      <div className="flex items-center gap-3 sm:gap-5 lg:gap-8 py-0.5 sm:py-1">
         <div className="flex items-center gap-3 sm:gap-5 lg:gap-8 text-sm sm:text-base tracking-[0.8px]">
           <Link to="/" className="hover:text-gray-600 transition-colors hidden sm:block">
             HOME
@@ -32,14 +32,14 @@ const Navbar: React.FC = () => {
             <Link 
               to="/create-job" 
               className="hover:text-gray-600 transition-colors text-sm sm:text-base tracking-[0.8px] hidden sm:block"
-            >
+            > 
               CREATE JOB
             </Link>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleSignOut}
-              className="text-sm sm:text-base tracking-[0.8px] gap-1.5 sm:gap-2 py-2 px-2.5 sm:px-3"
+              className="text-sm sm:text-base tracking-[0.8px] gap-1.5 sm:gap-2 py-0 px-1 sm:px-1.5"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">LOGOUT</span>
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
         ) : (
           <Link 
             to="/auth" 
-            className="hover:text-gray-600 transition-colors text-sm sm:text-base tracking-[0.8px] py-2"
+            className="hover:text-gray-600 transition-colors text-sm sm:text-base tracking-[0.8px] py-1"
           >
             LOGIN
           </Link>
