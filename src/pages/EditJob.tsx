@@ -32,16 +32,18 @@ const EditJob: React.FC = () => {
   return (
     <div className="bg-white flex flex-col items-center min-h-screen">
       <Toaster position="top-center" />
-      <div className="w-full max-w-7xl px-4 py-6 flex flex-col items-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 flex flex-col items-center">
         <Navbar />
-        <div className="container mx-auto py-16">
-          <h1 className="text-black text-4xl font-medium tracking-wider text-center mb-12">
+        <div className="container mx-auto py-8 sm:py-12 lg:py-16">
+          <h1 className="text-black text-2xl sm:text-3xl lg:text-4xl font-medium tracking-wider text-center mb-8 sm:mb-12 px-4">
             Edit Job Posting
           </h1>
-          {jobExists && <EditJobForm jobId={jobId!} />}
+          <div className="max-w-2xl mx-auto">
+            {jobExists && <EditJobForm jobId={jobId!} />}
+          </div>
         </div>
       </div>
-      <div className="w-full max-w-7xl px-4 flex justify-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-center">
         <Footer />
       </div>
     </div>

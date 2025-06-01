@@ -48,10 +48,10 @@ const ApplyJob: React.FC = () => {
   if (loading) {
     return (
       <div className="bg-white flex flex-col items-center min-h-screen">
-        <div className="w-full max-w-7xl px-4 py-6 flex flex-col items-center">
+        <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 flex flex-col items-center">
           <Navbar />
-          <div className="container mx-auto py-16 flex items-center justify-center">
-            <p>Loading job details...</p>
+          <div className="container mx-auto py-8 sm:py-12 lg:py-16 flex items-center justify-center">
+            <p className="text-lg">Loading job details...</p>
           </div>
         </div>
         <Footer />
@@ -62,12 +62,12 @@ const ApplyJob: React.FC = () => {
   return (
     <div className="bg-white flex flex-col items-center min-h-screen">
       <Toaster position="top-center" />
-      <div className="w-full max-w-7xl px-4 py-6 flex flex-col items-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6 flex flex-col items-center">
         <Navbar />
-        <div className="container mx-auto py-16">
+        <div className="container mx-auto py-8 sm:py-12 lg:py-16">
           {error ? (
-            <div className="text-center py-16">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800">{error}</h2>
+            <div className="text-center py-16 px-4">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">{error}</h2>
               <Link to="/">
                 <Button variant="gradient" size="talexa">
                   Return to Home
@@ -75,15 +75,15 @@ const ApplyJob: React.FC = () => {
               </Link>
             </div>
           ) : job ? (
-            <div className="max-w-3xl mx-auto">
+            <div className="max-w-4xl mx-auto px-4">
               <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white">
-                  <h1 className="text-3xl font-bold mb-2">{job.jobTitle}</h1>
+                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 sm:p-8 text-white">
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-2">{job.jobTitle}</h1>
                   <p className="opacity-90">Apply for this position</p>
                 </div>
                 
-                <div className="p-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="p-4 sm:p-6 lg:p-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6">
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Experience Required</h3>
                       <p className="mt-1 text-lg">{job.minimumExperience}</p>
@@ -116,29 +116,30 @@ const ApplyJob: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="bg-gray-50 p-6 -mx-6 -mb-6 mt-6">
-                    <h3 className="text-xl font-semibold mb-4">Upload Your Resume</h3>
-                    <p className="text-gray-600 mb-4">
+                  <div className="bg-gray-50 p-4 sm:p-6 -mx-4 sm:-mx-6 lg:-mx-8 -mb-4 sm:-mb-6 lg:-mb-8 mt-6">
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Upload Your Resume</h3>
+                    <p className="text-gray-600 mb-4 text-sm sm:text-base">
                       Upload your resume below. Our AI system will analyze your skills 
                       and experiences to match you with this position.
                     </p>
                     
                     {job.status === "active" ? (
                       <div className="mt-4 flex flex-col gap-4">
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                          <p className="text-gray-500 mb-4">Drag and drop your resume file here, or click to select</p>
+                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center">
+                          <p className="text-gray-500 mb-4 text-sm sm:text-base">Drag and drop your resume file here, or click to select</p>
                           <Button 
                             variant="outline" 
                             onClick={() => toast("This feature will be implemented in the next phase.")}
+                            className="mb-2"
                           >
                             Select File
                           </Button>
-                          <p className="text-xs text-gray-400 mt-2">Supported formats: PDF, DOCX, RTF (Max 5MB)</p>
+                          <p className="text-xs text-gray-400">Supported formats: PDF, DOCX, RTF (Max 5MB)</p>
                         </div>
                         
                         <Button 
                           variant="gradient" 
-                          className="mt-4" 
+                          className="mt-4 w-full sm:w-auto" 
                           size="lg"
                           onClick={() => toast("This feature will be implemented in the next phase.")}
                         >
@@ -159,7 +160,7 @@ const ApplyJob: React.FC = () => {
           ) : null}
         </div>
       </div>
-      <div className="w-full max-w-7xl px-4 mt-auto">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-auto">
         <Footer />
       </div>
     </div>
