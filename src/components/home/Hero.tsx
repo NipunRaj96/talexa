@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Hero: React.FC = () => {
   return (
     <section className="flex flex-col items-center py-16 sm:py-20 lg:py-28 px-4 sm:px-8 lg:px-12 relative">
-      <h1 className="text-black text-3xl sm:text-4xl lg:text-[48px] font-medium tracking-[1.2px] text-center max-w-[340px] sm:max-w-[600px] lg:max-w-[800px] leading-tight sm:leading-normal mb-2 sm:mb-4">
+      <h1 className="text-black text-3xl sm:text-4xl lg:text-[48px] font-medium tracking-[1.2px] text-center max-w-[340px] sm:max-w-[600px] lg:max-w-[800px] leading-tight sm:leading-tight mb-2 sm:mb-4">
         Hiring the right talent is Hard.
         <br className="hidden sm:block" />
         Filtering resumes shouldn't be.
