@@ -35,7 +35,8 @@ export const useJobs = () => {
 
       if (error) throw error;
       
-      setJobs(data || []);
+      // Type assertion to ensure correct status type
+      setJobs((data as JobPosting[]) || []);
     } catch (error) {
       console.error('Error fetching jobs:', error);
       toast.error('Failed to fetch job postings');
@@ -61,7 +62,7 @@ export const useJobs = () => {
 
       toast.success('Job posting created successfully!');
       fetchJobs(); // Refresh the list
-      return data;
+      return data as JobPosting;
     } catch (error) {
       console.error('Error creating job:', error);
       toast.error('Failed to create job posting');
@@ -125,7 +126,7 @@ export const useJobs = () => {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as JobPosting;
     } catch (error) {
       console.error('Error fetching job:', error);
       return null;
