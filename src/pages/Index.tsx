@@ -1,10 +1,9 @@
 
-import React from "react";
-import Hero from "../components/home/Hero";
-import HowItWorks from "../components/home/HowItWorks";
-import Layout from "../components/layout/Layout";
+import Layout from "@/components/layout/Layout";
+import Hero from "@/components/home/Hero";
+import HowItWorks from "@/components/home/HowItWorks";
 
-const Index: React.FC = () => {
+const Index = () => {
   return (
     <Layout>
       <Hero />

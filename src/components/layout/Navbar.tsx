@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,18 @@ import { useAuth } from "@/contexts/AuthContext";
 import { LogOut } from "lucide-react";
 
 const Navbar: React.FC = () => {
-  const { user, signOut } = useAuth();
+  // Safely check if we're within the AuthProvider context
+  let user = null;
+  let signOut = () => {};
+  
+  try {
+    const authContext = useAuth();
+    user = authContext.user;
+    signOut = authContext.signOut;
+  } catch (error) {
+    // If we're not within AuthProvider, just use default values
+    console.log('Navbar rendered outside AuthProvider context');
+  }
 
   const handleSignOut = async () => {
     await signOut();
