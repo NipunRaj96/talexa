@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -25,10 +24,20 @@ const Auth: React.FC = () => {
     }
   }, [user, navigate]);
 
-  // Handle email confirmation
+  // Handle email confirmation and OAuth success
   useEffect(() => {
-    if (searchParams.get('confirmed') === 'true') {
+    const confirmed = searchParams.get('confirmed');
+    const accessToken = searchParams.get('access_token');
+    const refreshToken = searchParams.get('refresh_token');
+    
+    if (confirmed === 'true') {
       toast.success('Email confirmed successfully! You can now sign in.');
+    }
+    
+    // Check if this is an OAuth callback with tokens
+    if (accessToken && refreshToken) {
+      toast.success('Successfully signed in!');
+      // The auth state change will handle the redirect
     }
   }, [searchParams]);
 
