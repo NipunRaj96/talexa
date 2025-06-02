@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -20,24 +21,23 @@ const Auth: React.FC = () => {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
+      console.log('User is authenticated, redirecting to dashboard');
       navigate('/dashboard');
     }
   }, [user, navigate]);
 
-  // Handle email confirmation and OAuth success
+  // Handle URL parameters and auth events
   useEffect(() => {
-    const confirmed = searchParams.get('confirmed');
-    const accessToken = searchParams.get('access_token');
-    const refreshToken = searchParams.get('refresh_token');
+    const error = searchParams.get('error');
+    const errorDescription = searchParams.get('error_description');
     
-    if (confirmed === 'true') {
-      toast.success('Email confirmed successfully! You can now sign in.');
-    }
-    
-    // Check if this is an OAuth callback with tokens
-    if (accessToken && refreshToken) {
-      toast.success('Successfully signed in!');
-      // The auth state change will handle the redirect
+    if (error) {
+      console.error('Auth error:', error, errorDescription);
+      toast.error('Authentication failed', {
+        description: errorDescription || error
+      });
+      setGoogleLoading(false);
+      setGithubLoading(false);
     }
   }, [searchParams]);
 
@@ -70,7 +70,7 @@ const Auth: React.FC = () => {
       }
     } else {
       toast.success('Welcome back!');
-      navigate('/dashboard');
+      // Navigation will be handled by useEffect when user state changes
     }
     
     setIsLoading(false);
@@ -128,7 +128,7 @@ const Auth: React.FC = () => {
       });
       setGoogleLoading(false);
     }
-    // Don't set loading to false here as the user will be redirected
+    // Loading state will be cleared by auth state change or error handling
   };
 
   const handleGitHubSignIn = async () => {
@@ -142,7 +142,7 @@ const Auth: React.FC = () => {
       });
       setGithubLoading(false);
     }
-    // Don't set loading to false here as the user will be redirected
+    // Loading state will be cleared by auth state change or error handling
   };
 
   return (

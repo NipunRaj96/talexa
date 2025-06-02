@@ -38,6 +38,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(session?.user ?? null);
         setLoading(false);
         
+        // Handle successful OAuth sign in
+        if (event === 'SIGNED_IN' && session?.user) {
+          console.log('User signed in successfully');
+          // Redirect will be handled by the component
+        }
+        
         // Handle email confirmation
         if (event === 'SIGNED_IN' && session?.user?.email_confirmed_at) {
           console.log('User confirmed and signed in');
@@ -57,13 +63,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signUp = async (email: string, password: string, fullName?: string) => {
-    const redirectUrl = `${window.location.origin}/auth`;
-    
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: redirectUrl,
+        emailRedirectTo: `${window.location.origin}/dashboard`,
         data: {
           full_name: fullName
         }
@@ -95,7 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth`
+        redirectTo: `${window.location.origin}/dashboard`
       }
     });
     
@@ -107,7 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${window.location.origin}/auth`
+        redirectTo: `${window.location.origin}/dashboard`
       }
     });
     
