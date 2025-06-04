@@ -29,6 +29,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Use production URL for deployed site, otherwise use current origin
+  const getRedirectUrl = () => {
+    const currentHost = window.location.hostname;
+    if (currentHost === 'talexa.vercel.app') {
+      return 'https://talexa.vercel.app/dashboard';
+    }
+    return `${window.location.origin}/dashboard`;
+  };
+
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -67,7 +76,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`,
+        emailRedirectTo: getRedirectUrl(),
         data: {
           full_name: fullName
         }
@@ -99,7 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`
+        redirectTo: getRedirectUrl()
       }
     });
     
@@ -111,7 +120,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`
+        redirectTo: getRedirectUrl()
       }
     });
     
