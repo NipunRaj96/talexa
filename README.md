@@ -1,4 +1,4 @@
-# 💼 Talexa – Because CGPA isn’t everything.
+# 💼 Talexa – Because CGPA isn’t everything. (Ongoing)
 
 **Talexa** is an AI-powered resume analysis tool designed to help recruiters find the right talent based on **skills** and **experience**, not just CGPA or academic scores. It simplifies the shortlisting process by matching resumes with the job's actual requirements — all with minimal input and a shareable link.
 
