@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 export interface JobPosting {
@@ -21,16 +20,12 @@ export interface JobPosting {
 export const useJobs = () => {
   const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useAuth();
 
   const fetchJobs = async () => {
-    if (!user) return;
-    
     try {
       const { data, error } = await supabase
         .from('job_postings')
         .select('*')
-        .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -46,14 +41,12 @@ export const useJobs = () => {
   };
 
   const createJob = async (jobData: Omit<JobPosting, 'id' | 'created_at' | 'updated_at' | 'user_id' | 'applicants'>) => {
-    if (!user) return null;
-
     try {
       const { data, error } = await supabase
         .from('job_postings')
         .insert([{
           ...jobData,
-          user_id: user.id
+          user_id: 'anonymous' // Since we removed auth, use a placeholder
         }])
         .select()
         .single();
@@ -71,8 +64,6 @@ export const useJobs = () => {
   };
 
   const updateJob = async (jobId: string, updates: Partial<JobPosting>) => {
-    if (!user) return false;
-
     try {
       const { error } = await supabase
         .from('job_postings')
@@ -80,8 +71,7 @@ export const useJobs = () => {
           ...updates,
           updated_at: new Date().toISOString()
         })
-        .eq('id', jobId)
-        .eq('user_id', user.id);
+        .eq('id', jobId);
 
       if (error) throw error;
 
@@ -96,14 +86,11 @@ export const useJobs = () => {
   };
 
   const deleteJob = async (jobId: string) => {
-    if (!user) return false;
-
     try {
       const { error } = await supabase
         .from('job_postings')
         .delete()
-        .eq('id', jobId)
-        .eq('user_id', user.id);
+        .eq('id', jobId);
 
       if (error) throw error;
 
@@ -135,7 +122,7 @@ export const useJobs = () => {
 
   useEffect(() => {
     fetchJobs();
-  }, [user]);
+  }, []);
 
   return {
     jobs,
