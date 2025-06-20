@@ -4,15 +4,26 @@ import { useParams, Link } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 import { Toaster, toast } from "sonner";
 import { useJobs, JobPosting } from "@/hooks/useJobs";
+import { useJobApplications } from "@/hooks/useJobApplications";
 
 const ApplyJob: React.FC = () => {
   const { jobId } = useParams<{ jobId: string }>();
   const [job, setJob] = useState<JobPosting | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  
+  // Form state
+  const [applicantName, setApplicantName] = useState("");
+  const [applicantEmail, setApplicantEmail] = useState("");
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  
   const { getJobById } = useJobs();
+  const { submitApplication } = useJobApplications();
 
   useEffect(() => {
     const fetchJobDetails = async () => {
@@ -43,6 +54,80 @@ const ApplyJob: React.FC = () => {
 
     fetchJobDetails();
   }, [jobId, getJobById]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type and size
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+      const maxSize = 5 * 1024 * 1024; // 5MB
+
+      if (!allowedTypes.includes(file.type)) {
+        toast.error('Please upload a PDF, DOCX, or TXT file');
+        return;
+      }
+
+      if (file.size > maxSize) {
+        toast.error('File size must be less than 5MB');
+        return;
+      }
+
+      setResumeFile(file);
+      toast.success('Resume uploaded successfully!');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!applicantName.trim()) {
+      toast.error('Please enter your name');
+      return;
+    }
+    
+    if (!applicantEmail.trim()) {
+      toast.error('Please enter your email');
+      return;
+    }
+    
+    if (!resumeFile) {
+      toast.error('Please upload your resume');
+      return;
+    }
+
+    if (!job) return;
+
+    setSubmitting(true);
+    
+    try {
+      const result = await submitApplication({
+        jobId: job.id,
+        applicantName,
+        applicantEmail,
+        resumeFile,
+        jobRequirements: {
+          skills: job.skills,
+          experience: job.minimum_experience,
+          description: job.description || undefined
+        }
+      });
+
+      if (result) {
+        toast.success('Application submitted successfully! Our AI will analyze your resume.');
+        // Reset form
+        setApplicantName('');
+        setApplicantEmail('');
+        setResumeFile(null);
+        // Reset file input
+        const fileInput = document.getElementById('resume-file') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -141,42 +226,82 @@ const ApplyJob: React.FC = () => {
                   </div>
                   
                   <div className="bg-gray-50 p-4 sm:p-6 -mx-4 sm:-mx-6 lg:-mx-8 -mb-4 sm:-mb-6 lg:-mb-8 mt-6">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Upload Your Resume</h3>
-                    <p className="text-gray-600 mb-4 text-sm sm:text-base">
-                      Upload your resume below. Our AI system will analyze your skills 
-                      and experiences to match you with this position.
+                    <h3 className="text-lg sm:text-xl font-semibold mb-4">Submit Your Application</h3>
+                    <p className="text-gray-600 mb-6 text-sm sm:text-base">
+                      Upload your resume and our AI will analyze your skills and experience to match you with this position.
                     </p>
                     
                     {job.status === "active" ? (
-                      <div className="mt-4 flex flex-col gap-4">
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center hover:border-gray-400 transition-colors">
-                          <div className="mb-4">
-                            <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="name">Full Name *</Label>
+                            <Input
+                              id="name"
+                              type="text"
+                              value={applicantName}
+                              onChange={(e) => setApplicantName(e.target.value)}
+                              placeholder="Enter your full name"
+                              required
+                            />
                           </div>
-                          <p className="text-gray-500 mb-4 text-sm sm:text-base">Drag and drop your resume file here, or click to select</p>
-                          <Button 
-                            variant="outline" 
-                            onClick={() => toast("This feature will be implemented in the next phase.")}
-                            className="mb-2"
-                          >
-                            Select File
-                          </Button>
-                          <p className="text-xs text-gray-400">Supported formats: PDF, DOCX, RTF (Max 5MB)</p>
+                          
+                          <div>
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={applicantEmail}
+                              onChange={(e) => setApplicantEmail(e.target.value)}
+                              placeholder="Enter your email"
+                              required
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="resume-file">Resume *</Label>
+                          <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                            {resumeFile ? (
+                              <div className="text-green-600">
+                                <svg className="mx-auto h-12 w-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p className="font-medium">{resumeFile.name}</p>
+                                <p className="text-sm text-gray-500 mt-1">File uploaded successfully</p>
+                              </div>
+                            ) : (
+                              <div>
+                                <svg className="mx-auto h-12 w-12 text-gray-400 mb-4" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <p className="text-gray-500 mb-2">Click to upload your resume</p>
+                              </div>
+                            )}
+                            <input
+                              id="resume-file"
+                              type="file"
+                              accept=".pdf,.docx,.doc,.txt"
+                              onChange={handleFileChange}
+                              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                              required
+                            />
+                          </div>
+                          <p className="text-xs text-gray-400 mt-2">Supported formats: PDF, DOCX, DOC, TXT (Max 5MB)</p>
                         </div>
                         
                         <Button 
+                          type="submit" 
                           variant="gradient" 
-                          className="mt-4 w-full sm:w-auto" 
+                          className="w-full" 
                           size="lg"
-                          onClick={() => toast("This feature will be implemented in the next phase.")}
+                          disabled={submitting}
                         >
-                          Submit Application
+                          {submitting ? 'Submitting...' : 'Submit Application'}
                         </Button>
-                      </div>
+                      </form>
                     ) : (
-                      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
                         <p className="text-yellow-700">
                           This job posting is no longer accepting applications.
                         </p>
